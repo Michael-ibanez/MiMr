@@ -1,3 +1,5 @@
+// This is what heroku will look at to start running the app
+
 const express = require('express');
 const http = require('http');
 const path = require('path');
