@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { Field, reduxForm } from 'redux-form'
-import * as Users from './users/userController.js'
 
 export class registerPage extends Component {
   constructor(props) {
@@ -10,9 +9,9 @@ export class registerPage extends Component {
 
   handleSubmit = user => {
     if (user != null) {
-           let userToUpdate = JSON.parse(JSON.stringify(user));
-           Users.register(userToUpdate);
-         }
+        let userToUpdate = JSON.parse(JSON.stringify(user));
+        console.log(userToUpdate);
+    }
   }
 
   render() {
