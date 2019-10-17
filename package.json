@@ -5,17 +5,24 @@
   "main": "app.js",
   "dependencies": {
     "assert": "^2.0.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "concurrently": "^5.0.0",
     "dotenv": "^8.2.0",
+    "is-empty": "^1.2.0",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.3.3",
     "mongoose": "^5.7.5",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
     "promise": "^8.0.3",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-redux": "^7.1.1",
     "react-scripts": "3.2.0",
     "redux": "^4.0.4",
-    "redux-form": "^8.2.6"
+    "redux-form": "^8.2.6",
+    "validator": "^11.1.0"
   },
   "scripts": {
     "start": "PORT=process.env.PORT react-scripts start",
