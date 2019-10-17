@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TEST</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    
+    <body>
+        <table class="main-table">
+         <caption>Test Table</caption>
+          <tr>
+              <th>First name:</th>
+              <th>Last name :</th>
+              <th>Total:</th>
+          </tr>
+          <tr id=column1>
+              <td>Manuel</td>
+              <td>Reyes</td>
+              <td id="hoursWorked"></td>
+          </tr>
+          <tr>
+              <td>Michael</td>
+              <td>Ibanez</td>
+              <td></td>
+          </tr>
+        </table>
+        <form>
+            Hours:<br>
+            <input id="hours" type="number" placeholder="Type hours worked..." name="Hours Worked"><br>
+            <button type="button" onclick="getInputValue();">Submit</button>
+        </form>
+    </body>
+    <script src="scripts.js"></script>
+</html>
