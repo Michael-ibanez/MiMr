@@ -11,23 +11,23 @@
           <tr>
               <th>First name:</th>
               <th>Last name :</th>
+              <th>Today:</th>
               <th>Total:</th>
+              <th>Ending Week:</th>
           </tr>
-          <tr id=column1>
+          <tr id="column1">
               <td>Manuel</td>
               <td>Reyes</td>
               <td id="hoursWorked"></td>
-          </tr>
-          <tr>
-              <td>Michael</td>
-              <td>Ibanez</td>
-              <td></td>
+              <td id="hoursTotalWeek"></td>
+              <td>10/18/2019</td>
           </tr>
         </table>
         <form>
-            Hours:<br>
+            Clock In<br>
             <input id="hours" type="number" placeholder="Type hours worked..." name="Hours Worked"><br>
             <button type="button" onclick="getInputValue();">Submit</button>
+            <button type="button" onclick="newDate();">Add</button>
         </form>
     </body>
     <script src="scripts.js"></script>
