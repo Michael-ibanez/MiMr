@@ -11,21 +11,12 @@ import logo from './logo.svg';
 import './css/login.css'
 import './js/login.js'
 import {Example} from './example.js'
+import * as Users from './registerPage.js'
 
 function App() {
   return (
     <div className="App">
-      <div className="loginbox">
-            <h1>Login Here</h1>
-            <Example></Example>
-            <form>
-                <p>Username</p>
-                <input type="text" name="" placeholder="Enter Username"/>
-                <p>Password</p>
-                <input type="password" name="" placeholder="Enter Password"/>
-                <input type="submit" name="" value="Login"/>
-            </form>
-        </div>
+      <Users.registerPage></Users.registerPage>
     </div>
   );
 }
