@@ -4,6 +4,7 @@
   "private": true,
   "main": "app.js",
   "dependencies": {
+    "assert": "^2.0.0",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "mongodb": "^3.3.3",
