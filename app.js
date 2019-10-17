@@ -10,7 +10,7 @@ var mongoose = require('mongoose');
 
 // Starts express
 var app = express();
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/mimr');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/mimr', {useNewUrlParser: true});
 
 // Creates app and starts the app on either local(8080) or online
 // and is determined by heroku at runtime
