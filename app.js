@@ -5,11 +5,11 @@
 const express = require('express');
 const http = require('http');
 const path = require('path');
-require('dotenv').config()
+require('dotenv').config();
+var mongoose = require('mongoose');
 
 // Starts express
 var app = express();
-var mongoose = require(‘mongoose’);
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/mimr');
 
 // Creates app and starts the app on either local(8080) or online
