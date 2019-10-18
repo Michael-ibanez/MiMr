@@ -8,7 +8,7 @@ The purpose of this project is to create an application alongside a website that
 
 In the future we plan to add features such as adding employers and employees where the employer can have several employees and view each of their time sheet history.
 
-Created by Manuel Reyes, Marcos Ibanez and Michael Ibanez.  
+Created by Jessenia Ruiz, Manuel Reyes, Marcos Ibanez, and Michael Ibanez.  
 
 ## Getting started
 
