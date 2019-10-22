@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
 import classnames from "classnames";
+import defaultPic from "../../img/d.png";
 
 class Register extends Component {
   constructor() {
@@ -13,6 +14,7 @@ class Register extends Component {
       email: "",
       password: "",
       password2: "",
+      profilePic: defaultPic,
       errors: {}
     };
   }
@@ -36,6 +38,10 @@ class Register extends Component {
     this.setState({ [e.target.id]: e.target.value });
   };
 
+  onChangeFile = e => {
+    this.setState({ profilePic: e.target.files[0] });
+  };
+
   onSubmit = e => {
     e.preventDefault();
 
@@ -43,7 +49,8 @@ class Register extends Component {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
-      password2: this.state.password2
+      password2: this.state.password2,
+      profilePic: this.state.profilePic
     };
 
     this.props.registerUser(newUser, this.props.history);
@@ -120,6 +127,23 @@ class Register extends Component {
                 />
                 <label htmlFor="password2">Confirm Password</label>
                 <span className="red-text">{errors.password2}</span>
+              </div>
+              <div className="col s12">
+                <label className="label" htmlFor="profilePic">
+                  Upload Profile Picture
+                </label>
+                <div className="input-field">
+                  <input
+                    onChange={this.onChangeFile}
+                    error={errors.profilePic}
+                    id="profilePic"
+                    type="file"
+                    className={classnames("", {
+                      invalid: errors.profilePic
+                    })}
+                  />
+                  <span className="red-text">{errors.profilePic}</span>
+                </div>
               </div>
               <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                 <button

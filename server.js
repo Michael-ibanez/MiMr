@@ -9,6 +9,7 @@ const passport = require("passport");
 const users = require("./routes/userRoutes");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cloudinary = require("cloudinary-core").Cloudinary.new();
 
 // Starts express
 const app = express();
@@ -26,9 +27,21 @@ const db = require("./config/keys").mongoURI;
 
 // Connect to MongoDB
 mongoose
-  .connect(db, { useNewUrlParser: true })
+  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB successfully connected"))
   .catch(err => console.log(err));
+
+// Cloudinary Config
+const cloud = require("./config/keys").CloudURL;
+
+// Connect to Cloudinary
+if (typeof cloud === "undefined") {
+  console.warn("!! cloudinary config is undefined !!");
+  console.warn("export CLOUDINARY_URL or set dotenv file");
+} else {
+  console.log("cloudinary config:");
+  console.log(cloudinary.config());
+}
 
 // Creates app and starts the app on either local(8080) or online
 // and is determined by heroku at runtime
