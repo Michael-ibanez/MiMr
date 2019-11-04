@@ -10,6 +10,8 @@ const users = require("./routes/userRoutes");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cloudinary = require("cloudinary-core").Cloudinary.new();
+const fileUpload = require("express-fileupload");
+const cors = require("cors");
 
 // Starts express
 const app = express();
@@ -47,6 +49,22 @@ if (typeof cloud === "undefined") {
 // and is determined by heroku at runtime
 app.use(express.static(path.join(__dirname, "build")));
 app.use("/api/users", users);
+
+// Using this to send a resquest form from the frontend, its only to upload our
+// picture and then deploy it to cloudinary in the userRoutes. Afterwards we
+// will delete it later on.
+app.use(cors());
+app.use(fileUpload());
+
+app.post("/upload", (req, res, next) => {
+  let imageFile = req.files.file;
+  imageFile.mv(`${__dirname}/uploads/images/${req.body.filename}`, err => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.json({ file: `/uploads/images/${req.body.filename}` });
+  });
+});
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {

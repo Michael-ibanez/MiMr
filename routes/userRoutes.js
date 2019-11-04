@@ -8,6 +8,7 @@ const name = require("../config/keys").CloudName;
 const key = require("../config/keys").CloudKey;
 const secret = require("../config/keys").CloudSecret;
 const cloudinary = require("cloudinary");
+const fs = require("fs");
 
 // Load User model
 const User = require("../models/userModel");
@@ -16,41 +17,74 @@ const User = require("../models/userModel");
 // @desc Register user
 // @access Public
 router.post("/register", (req, res) => {
-  console.log(req.body);
-
   cloudinary.config({
     cloud_name: name,
     api_key: key,
     api_secret: secret
   });
-  let profilePic = new File(req.body.profilePic);
-  console.log(profilePic);
 
-  cloudinary.uploader.upload(profilePic, function(error, result) {
-    console.log(result, error);
-    req.body.profilePic = result.public_id;
-  });
+  // Upload file to cloudinary and get the result public_id
+  //  Next delete the file in the directory
+  let pubKey =
+    "https://res.cloudinary.com/hufqpufdw/image/upload/v1572893972/d_k5wgqi.png";
 
-  const newUser = new User({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    profilePic: req.body.profilePic
-  });
+  if (req.body.profilePic != "/uploads/images/d.png") {
+    fileName = "." + req.body.profilePic;
+    cloudinary.v2.uploader.upload(
+      fileName,
+      {
+        overwrite: true
+      },
+      function(err, image) {
+        if (err) {
+          console.warn(err);
+        }
+        // Store the url to retreieve profile pic
+        let newUser = new User({
+          name: req.body.name,
+          email: req.body.email,
+          password: req.body.password,
+          profilePic: image.url
+        });
 
-  console.log(newUser);
-
-  // Hash password before saving in database
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(newUser.password, salt, (err, hash) => {
-      if (err) throw err;
-      newUser.password = hash;
-      newUser
-        .save()
-        .then(user => res.json(user))
-        .catch(err => console.log(err));
+        console.log("1" + newUser);
+        let filePath = "." + req.body.profilePic;
+        // Delete file now from local storage
+        fs.unlinkSync(filePath);
+        setTimeout(function() {
+          bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(newUser.password, salt, (err, hash) => {
+              if (err) throw err;
+              newUser.password = hash;
+              newUser
+                .save()
+                .then(user => res.json(user))
+                .catch(err => console.log(err));
+            });
+          });
+        }, 1000);
+      }
+    );
+  } else {
+    console.log("2" + newUser);
+    let newUser = new User({
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+      profilePic: pubKey
     });
-  });
+
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(newUser.password, salt, (err, hash) => {
+        if (err) throw err;
+        newUser.password = hash;
+        newUser
+          .save()
+          .then(user => res.json(user))
+          .catch(err => console.log(err));
+      });
+    });
+  }
 });
 
 // @route POST api/users/login
@@ -76,7 +110,9 @@ router.post("/login", (req, res) => {
         // Create JWT Payload
         const payload = {
           id: user.id,
-          name: user.name
+          name: user.name,
+          email: user.email,
+          profilePic: user.profilePic
         };
 
         // Sign token

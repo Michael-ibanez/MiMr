@@ -24,9 +24,15 @@ class Dashboard extends Component {
             <h4>
               <b>Hey there,</b> {user.name.split(" ")[0]}
               <p className="flow-text grey-text text-darken-1">
-                Welcome to your dashboard!
+                Welcome to your dashboard! Loook at your picture
               </p>
+              <img
+                src={user.profilePic}
+                style={{ maxWidth: "30vw", maxHeight: "30vh" }}
+                alt="You!"
+              />
             </h4>
+
             <button
               style={{
                 width: "150px",

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
+import Dropzone from "react-dropzone";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
 import classnames from "classnames";
-import defaultPic from "../../img/d.png";
 
 class Register extends Component {
   constructor() {
@@ -14,9 +14,12 @@ class Register extends Component {
       email: "",
       password: "",
       password2: "",
-      profilePic: defaultPic,
+      profilePic: null,
+      profilePicURL: "d.png",
       errors: {}
     };
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onDrop = this.onDrop.bind(this);
   }
 
   componentDidMount() {
@@ -38,19 +41,32 @@ class Register extends Component {
     this.setState({ [e.target.id]: e.target.value });
   };
 
-  onChangeFile = e => {
-    this.setState({ profilePic: e.target.files[0] });
+  onDrop = e => {
+    let files = e;
+
+    let data = new FormData();
+    data.append("file", files[0]);
+    data.append("filename", files[0]["name"]);
+
+    fetch("/upload", {
+      method: "POST",
+      body: data
+    }).then(response => {
+      response.json().then(body => {
+        this.setState({ profilePicURL: `${body.file}` });
+      });
+    });
   };
 
   onSubmit = e => {
     e.preventDefault();
 
-    const newUser = {
+    let newUser = {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2,
-      profilePic: this.state.profilePic
+      profilePic: this.state.profilePicURL
     };
 
     this.props.registerUser(newUser, this.props.history);
@@ -132,18 +148,14 @@ class Register extends Component {
                 <label className="label" htmlFor="profilePic">
                   Upload Profile Picture
                 </label>
-                <div className="input-field">
-                  <input
-                    onChange={this.onChangeFile}
-                    error={errors.profilePic}
-                    id="profilePic"
-                    type="file"
-                    className={classnames("", {
-                      invalid: errors.profilePic
-                    })}
-                  />
-                  <span className="red-text">{errors.profilePic}</span>
-                </div>
+                <Dropzone onDrop={this.onDrop}>
+                  {({ getRootProps, getInputProps }) => (
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      Click me to upload a file!
+                    </div>
+                  )}
+                </Dropzone>
               </div>
               <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                 <button
