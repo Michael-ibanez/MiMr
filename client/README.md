@@ -1,6 +1,6 @@
 # Client folder
 
-This folder contains the source code to run the frontend
+This folder contains the source code to setup the frontend for testing
 
 ## Getting started
 
