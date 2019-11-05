@@ -10,7 +10,7 @@ To get the frontend running locally:
 - Clone this repo : `git clone https://github.com/Michael-ibanez/MiMr.git`
 - Install npm and node : `https://nodejs.org/en/`
 - Install all req'd dependencies : `npm install`
-- Start the local server and host frontend/backend : `npm start`
+- Start the frontend : `npm start`
 - Open [localhost:3000](http://localhost:3000)
 
 You can configure port in scripts section of `package.json`: we use [cross-env](https://github.com/kentcdodds/cross-env) to set environment variable PORT for React scripts, this is Windows-compatible way of setting environment variables.
@@ -21,20 +21,16 @@ This file lists the packages your project depends on. specifies versions of a pa
 
 ### actions
 
-T
+This folder holds teh types of actions our website goes through such as 'Loading Current User'
 
 ### helpers
 
-T
+This folder holds our keys for different services
 
 ### img
 
-T
-
-### js
-
-T
+This folder contains any images we use on our website except for personal profile pictures
 
 ### src
 
-T
+This folder contains the rest of the frontend code using reactJS
