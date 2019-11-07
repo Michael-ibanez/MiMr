@@ -12,6 +12,7 @@
     "concurrently": "^5.0.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "express-fileupload": "^1.1.6-alpha.6",
     "file-url": "^3.0.0",
     "form-data": "^2.5.1",
     "formdata": "^0.10.4",
