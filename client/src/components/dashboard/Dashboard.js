@@ -1,9 +1,31 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
+import { logoutUser, deleteUser } from "../../actions/authActions";
 
 class Dashboard extends Component {
+  constructor() {
+    super();
+    this.state = {
+      userName: "",
+      userEmail: "",
+      error: {}
+    };
+    this.onDeleteClick = this.onDeleteClick.bind(this);
+    this.onLogoutClick = this.onLogoutClick.bind(this);
+  }
+
+  componentDidMount() {
+    // If logged in and user navigates to Register page, should redirect them to dashboard
+    if (this.props.auth.isAuthenticated) {
+      let user = this.props.auth.user;
+      this.setState({
+        userName: user.name,
+        userEmail: user.email
+      });
+    }
+  }
+
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
@@ -11,7 +33,13 @@ class Dashboard extends Component {
 
   onDeleteClick = e => {
     e.preventDefault();
-    this.props.logoutUser();
+
+    let User = {
+      name: this.state.userName,
+      email: this.state.userEmail
+    };
+
+    this.props.deleteUser(User);
   };
 
   render() {
@@ -66,6 +94,7 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   logoutUser: PropTypes.func.isRequired,
+  deleteUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 
@@ -75,5 +104,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  { logoutUser, deleteUser }
 )(Dashboard);

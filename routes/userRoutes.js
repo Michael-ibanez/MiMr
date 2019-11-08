@@ -138,4 +138,16 @@ router.post("/login", (req, res) => {
   });
 });
 
+// @route POST api/users/delete
+// @desc Deletes user
+// @access Public
+router.post("/delete", (req, res) => {
+  //const email = req.body.email;
+  console.log(req.body.email);
+  let email = req.body.email;
+  User.findOneAndDelete({ email }).then(() => {
+    res.json("Success");
+  });
+});
+
 module.exports = router;
