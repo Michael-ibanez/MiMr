@@ -31,7 +31,7 @@
     "redux-thunk": "^2.3.0",
     "superagent": "^5.1.0",
     "typescript": "^3.7.2",
-    "validator": "^11.1.0"
+    "validator": "^13.7.0"
   },
   "scripts": {
     "start": "react-scripts start",
