@@ -18,7 +18,7 @@
     "formdata": "^0.10.4",
     "fs": "0.0.1-security",
     "is-empty": "^1.2.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mongodb": "^3.3.3",
     "mongoose": "^5.7.8",
     "passport": "^0.4.0",
